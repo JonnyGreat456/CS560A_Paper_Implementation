@@ -18,7 +18,7 @@ class SVMPegasos:
 	def loss(self, X, Y):
 		l = 0.0
 		for i in range(X.shape[1]):
-			x = X[:, i]
+			x = X[:, i].reshape((X.shape[0], 1))
 			y = float(Y[:, i])
 			l += self.hinge(x, y)
 		l /= X.shape[1]
@@ -42,7 +42,7 @@ class SVMPegasos:
 			# Calculate subgradients
 			update = np.zeros((num_features, 1))
 			for i in indices:
-				xi = X[:, i]
+				xi = X[:, i].reshape((X.shape[0], 1))
 				yi = float(Y[:, i])
 				if yi * self.w.T.dot(xi) < 1:
 					update += yi * xi
